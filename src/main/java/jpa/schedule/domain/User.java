@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
@@ -28,6 +31,8 @@ public class User {
 
 	private String password;
 	private String username;
+
+	@CreatedDate
 	private LocalDateTime registerTime;
 
 	@OneToMany(mappedBy = "user")

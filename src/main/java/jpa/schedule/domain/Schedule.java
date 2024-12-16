@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Getter
 @Table(name = "schedules")
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Schedule {
 	@Id
@@ -56,6 +56,6 @@ public class Schedule {
 	}
 
 	public boolean isWriter(Long userId) {
-		return this.user.getId() == userId;
+		return this.user.getUserId() == userId;
 	}
 }

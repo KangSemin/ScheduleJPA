@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequestDto requestDto, HttpSession session) {
         User user = userService.login(requestDto);
-        session.setAttribute("userId", user.getId());
+        session.setAttribute("userId", user.getUserId());
         return ResponseEntity.ok("로그인 성공");
     }
 

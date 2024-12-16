@@ -36,7 +36,7 @@ public class ScheduleService {
 
 	public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto requestDto, Long userId) {
 		Schedule schedule = findSchedule(id);
-		if (!schedule.getUser().getId().equals(userId)) {
+		if (!schedule.getUser().getUserId().equals(userId)) {
 			throw new IllegalArgumentException("수정 권한이 없습니다.");
 		}
 		schedule.update(requestDto);
@@ -45,7 +45,7 @@ public class ScheduleService {
 
 	public void deleteSchedule(Long id, Long userId) {
 		Schedule schedule = findSchedule(id);
-		if (!schedule.getUser().getId().equals(userId)) {
+		if (!schedule.getUser().getUserId().equals(userId)) {
 			throw new IllegalArgumentException("삭제 권한이 없습니다.");
 		}
 		scheduleRepository.delete(schedule);

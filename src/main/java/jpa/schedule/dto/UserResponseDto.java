@@ -13,7 +13,7 @@ public class UserResponseDto {
 	private final LocalDateTime registerTime;
 
 	public UserResponseDto(User user) {
-		this.id = user.getId();
+		this.id = user.getUserId();
 		this.username = user.getUsername();
 		this.email = user.getEmail();
 		this.registerTime = user.getRegisterTime();
