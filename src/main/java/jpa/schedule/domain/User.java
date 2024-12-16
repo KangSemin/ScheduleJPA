@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jpa.schedule.dto.UserRequestDto;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,30 +20,30 @@ import java.util.List;
 public class User {
 
 	@Id
-	@GeneratedValue
-	@Column(name = "user_id")
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long userId;
 
-	private String username;
-
-	@Email
+	@Column(unique = true)
 	private String email;
-	private String password;
 
+	private String password;
+	private String username;
 	private LocalDateTime registerTime;
 
 	@OneToMany(mappedBy = "user")
 	private List<Schedule> schedules = new ArrayList<>();
 
-	public User(UserRequestDto requestDto) {
-		username = requestDto.getUsername();
-		email =requestDto.getEmail();
-		password = requestDto.getPassword();
-		registerTime = LocalDateTime.now();
+	@Builder
+	public User(String email, String password, String username) {
+		this.email = email;
+		this.password = password;
+		this.username = username;
+		this.registerTime = LocalDateTime.now();
 	}
 
-	public void update(UserRequestDto requestDto) {
-		this.username = requestDto.getUsername();
-		this.password = requestDto.getPassword();
+	public void update(String email, String password, String username) {
+		this.email = email != null ? email : this.email;
+		this.password = password != null ? password : this.password;
+		this.username = username != null ? username : this.username;
 	}
 }
