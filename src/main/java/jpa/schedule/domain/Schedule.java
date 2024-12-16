@@ -40,6 +40,9 @@ public class Schedule {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+	private List<Comment> comments = new ArrayList<>();
+
 	@Builder
 	public Schedule(ScheduleRequestDto requestDto, User user) {
 		this.title = requestDto.getTitle();

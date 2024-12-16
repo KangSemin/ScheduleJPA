@@ -4,8 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jpa.schedule.dto.ScheduleRequestDto;
 import jpa.schedule.dto.ScheduleResponseDto;
+import jpa.schedule.dto.ScheduleListResponseDto;
 import jpa.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +32,10 @@ public class ScheduleController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<ScheduleResponseDto>> getSchedules() {
-		return ResponseEntity.ok(scheduleService.getSchedules());
+	public ResponseEntity<Page<ScheduleListResponseDto>> getScheduleList(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(required = false) Integer size) {
+		return ResponseEntity.ok(scheduleService.getScheduleList(page, size));
 	}
 
 	@PutMapping("/{id}")
