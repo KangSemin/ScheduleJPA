@@ -26,7 +26,7 @@ public class ScheduleService {
 	private static final int DEFAULT_PAGE_SIZE = 10;
 
 	public Schedule findSchedule(Long id) {
-		return scheduleRepository.findById(id)
+		return scheduleRepository.findByIdWithUser(id)
 				.orElseThrow(() -> new IllegalArgumentException("해당 일정이 존재하지 않습니다."));
 	}
 
