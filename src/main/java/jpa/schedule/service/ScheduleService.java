@@ -34,7 +34,7 @@ public class ScheduleService {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 		
-		Schedule schedule = new Schedule(requestDto, user);
+		Schedule schedule = new Schedule(requestDto.getTask(),requestDto.getTitle(), user);
 		scheduleRepository.save(schedule);
 		return new ScheduleResponseDto(schedule);
 	}
@@ -44,7 +44,7 @@ public class ScheduleService {
 		if (!schedule.getUser().getUserId().equals(userId)) {
 			throw new IllegalArgumentException("수정 권한이 없습니다.");
 		}
-		schedule.update(requestDto);
+		schedule.update(requestDto.getTitle(),requestDto.getTask());
 		return new ScheduleResponseDto(schedule);
 	}
 

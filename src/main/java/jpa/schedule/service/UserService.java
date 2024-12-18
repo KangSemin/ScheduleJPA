@@ -57,7 +57,6 @@ public class UserService {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-		// 비밀번호가 제공된 경우에만 암호화하여 업데이트
 		String password = requestDto.getPassword() != null ? 
 				passwordEncoder.encode(requestDto.getPassword()) : 
 				user.getPassword();
@@ -68,6 +67,6 @@ public class UserService {
 	}
 
 	public void deleteUser(Long id) {
-		userRepository.deleteById(id);
+		 userRepository.findById(id).get().markAsDeleted();
 	}
 }

@@ -17,48 +17,35 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "schedules")
-@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Schedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long scheduleId;
 
-	@Column(nullable = false)
 	private String title;
-
-	@Column(nullable = false)
 	private String task;
-
-	@Column(name = "posted_time")
 	private LocalDateTime postedTime;
-
-	@Column(name = "updated_time")
 	private LocalDateTime updatedTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
-	private List<Comment> comments = new ArrayList<>();
 
 	@Builder
-	public Schedule(ScheduleRequestDto requestDto, User user) {
-		this.title = requestDto.getTitle();
-		this.task = requestDto.getTask();
+	public Schedule(String title, String task, User user) {
+		this.title = title;
+		this.task = task;
 		this.user = user;
 		this.postedTime = LocalDateTime.now();
+		this.updatedTime = this.postedTime;
+	}
+
+	public void update(String title, String task) {
+		this.title = title;
+		this.task = task;
 		this.updatedTime = LocalDateTime.now();
 	}
 
-	public void update(ScheduleRequestDto requestDto) {
-		this.title = requestDto.getTitle();
-		this.task = requestDto.getTask();
-		this.updatedTime = LocalDateTime.now();
-	}
-
-	public boolean isWriter(Long userId) {
-		return this.user.getUserId() == userId;
-	}
 }

@@ -15,13 +15,17 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@EntityListeners(AuditingEntityListener.class)
+@Table(name = "comments")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment {
 
-	@Id @GeneratedValue
-	@Column(name = "comment_id")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long commentId;
+
+	private String content;
+	private LocalDateTime writtenTime;
+	private LocalDateTime updatedTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
@@ -31,24 +35,18 @@ public class Comment {
 	@JoinColumn(name = "schedule_id")
 	private Schedule schedule;
 
-	private String content;
-
-	@CreatedDate
-	private LocalDateTime writtenTime;
-
-	@LastModifiedDate
-	private LocalDateTime updatedTime;
-
 	@Builder
-	public Comment(Long commentId, User user, Schedule schedule, String content) {
-		this.commentId = commentId;
+	public Comment(String content, User user, Schedule schedule) {
+		this.content = content;
 		this.user = user;
 		this.schedule = schedule;
-		this.content = content;
+		this.writtenTime = LocalDateTime.now();
+		this.updatedTime = this.writtenTime;
 	}
 
 	public void update(String content) {
-		this.content = content != null ? content : this.content;
+		this.content = content;
+		this.updatedTime = LocalDateTime.now();
 	}
 
 }

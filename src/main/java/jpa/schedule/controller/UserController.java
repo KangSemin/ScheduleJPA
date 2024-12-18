@@ -62,6 +62,29 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id,
+                                           @CookieValue(required = false) Long userId,
+                                           HttpSession session,
+                                           HttpServletResponse response) {
+        if (userId == null || !userId.equals(id)) {
+            throw new IllegalArgumentException("접근 권한이 없습니다.");
+        }
+        
+        userService.deleteUser(id);
+        
+        // 세션 무효화
+        session.invalidate();
+        
+        // 쿠키 삭제
+        Cookie cookie = new Cookie("userId", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        
+        return ResponseEntity.ok().build();
+    }
+
     private void setSessionCookie(Long userId, HttpServletResponse response) {
         Cookie cookie = new Cookie("userId", userId.toString());
         cookie.setMaxAge(300);

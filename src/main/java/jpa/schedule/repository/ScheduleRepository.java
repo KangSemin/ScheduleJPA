@@ -10,10 +10,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-    @Query("SELECT new jpa.schedule.dto.ScheduleListResponseDto(s, COUNT(c)) " +
+    @Query("SELECT new jpa.schedule.dto.ScheduleListResponseDto(s, (SELECT COUNT(c) FROM Comment c WHERE c.schedule = s)) " +
            "FROM Schedule s " +
-           "LEFT JOIN s.comments c " +
-           "GROUP BY s " +
            "ORDER BY s.updatedTime DESC")
     Page<ScheduleListResponseDto> findAllWithCommentCount(Pageable pageable);
 }

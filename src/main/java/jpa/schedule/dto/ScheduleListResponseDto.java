@@ -21,6 +21,6 @@ public class ScheduleListResponseDto {
 		this.commentCount = commentCount;
 		this.postedTime = schedule.getPostedTime();
 		this.updatedTime = schedule.getUpdatedTime();
-		this.username = schedule.getUser().getUsername();
+		this.username = schedule.getUser().getDisplayName();
 	}
 }

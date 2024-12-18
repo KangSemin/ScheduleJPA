@@ -9,19 +9,20 @@ import jpa.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/schedules")
 @RequiredArgsConstructor
 public class ScheduleController {
+
 	private final ScheduleService scheduleService;
 
 	@PostMapping
 	public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto,
-														   HttpServletRequest request) {
+	                                                          HttpServletRequest request) {
 		Long userId = getUserId(request);
 		return ResponseEntity.ok(scheduleService.createSchedule(requestDto, userId));
 	}
@@ -37,18 +38,27 @@ public class ScheduleController {
 			@RequestParam(required = false) Integer size) {
 		return ResponseEntity.ok(scheduleService.getScheduleList(page, size));
 	}
+//	@GetMapping
+//	public String list(Model model,
+//	                   @RequestParam(defaultValue = "0") int page,
+//	                   @RequestParam(defaultValue = "10") int size) {
+//
+//		Page<ScheduleListResponseDto> schedules = scheduleService.getScheduleList(page, size);
+//		model.addAttribute("schedules", schedules);
+//		return "schedule/list";
+//	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable Long id,
-														   @RequestBody ScheduleRequestDto requestDto,
-														   HttpServletRequest request) {
+	                                                          @RequestBody ScheduleRequestDto requestDto,
+	                                                          HttpServletRequest request) {
 		Long userId = getUserId(request);
 		return ResponseEntity.ok(scheduleService.updateSchedule(id, requestDto, userId));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteSchedule(@PathVariable Long id,
-											 HttpServletRequest request) {
+	                                           HttpServletRequest request) {
 		Long userId = getUserId(request);
 		scheduleService.deleteSchedule(id, userId);
 		return ResponseEntity.ok().build();

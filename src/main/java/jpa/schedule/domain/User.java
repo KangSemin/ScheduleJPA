@@ -1,19 +1,14 @@
 package jpa.schedule.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jpa.schedule.dto.UserRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -35,8 +30,8 @@ public class User {
 	@CreatedDate
 	private LocalDateTime registerTime;
 
-	@OneToMany(mappedBy = "user")
-	private List<Schedule> schedules = new ArrayList<>();
+	private boolean deleted = false;
+	private LocalDateTime deletedAt;
 
 	@Builder
 	public User(String email, String password, String username) {
@@ -50,5 +45,16 @@ public class User {
 		this.email = email != null ? email : this.email;
 		this.password = password != null ? password : this.password;
 		this.username = username != null ? username : this.username;
+	}
+
+	public void markAsDeleted() {
+		this.deleted = true;
+		this.deletedAt = LocalDateTime.now();
+		this.username = "[삭제된 사용자]";
+		this.email = "deleted_" + this.userId + "@deleted.com";
+	}
+
+	public String getDisplayName() {
+		return deleted ? "[삭제된 사용자]" : username;
 	}
 }
