@@ -13,9 +13,13 @@ import java.util.Optional;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
+
+
+
     @Query("SELECT new jpa.schedule.dto.ScheduleListResponseDto(s, (SELECT COUNT(c) FROM Comment c WHERE c.schedule = s)) " +
-           "FROM Schedule s " +
-           "ORDER BY s.updatedTime DESC")
+            "FROM Schedule s " +
+            "JOIN FETCH s.user " +
+            "ORDER BY s.updatedTime DESC")
     Page<ScheduleListResponseDto> findAllWithCommentCount(Pageable pageable);
 
     @Query("SELECT s FROM Schedule s JOIN FETCH s.user WHERE s.scheduleId = :id")

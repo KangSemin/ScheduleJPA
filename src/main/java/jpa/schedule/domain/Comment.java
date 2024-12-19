@@ -13,9 +13,8 @@ import java.time.LocalDateTime;
 
 
 
-@Entity
-@Getter
-@Table(name = "comments")
+@Entity @Getter @Table(name = "comments")
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment {
 
@@ -24,7 +23,10 @@ public class Comment {
 	private Long commentId;
 
 	private String content;
+
+	@CreatedDate
 	private LocalDateTime writtenTime;
+	@LastModifiedDate
 	private LocalDateTime updatedTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -40,13 +42,10 @@ public class Comment {
 		this.content = content;
 		this.user = user;
 		this.schedule = schedule;
-		this.writtenTime = LocalDateTime.now();
-		this.updatedTime = this.writtenTime;
 	}
 
 	public void update(String content) {
 		this.content = content;
-		this.updatedTime = LocalDateTime.now();
 	}
 
 }

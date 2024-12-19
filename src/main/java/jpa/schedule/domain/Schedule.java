@@ -11,12 +11,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
-@Getter
-@Table(name = "schedules")
+@Entity @Getter @Table(name = "schedules")
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Schedule {
 	@Id
@@ -25,7 +22,10 @@ public class Schedule {
 
 	private String title;
 	private String task;
+
+	@CreatedDate
 	private LocalDateTime postedTime;
+	@LastModifiedDate
 	private LocalDateTime updatedTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -38,14 +38,11 @@ public class Schedule {
 		this.title = title;
 		this.task = task;
 		this.user = user;
-		this.postedTime = LocalDateTime.now();
-		this.updatedTime = this.postedTime;
 	}
 
 	public void update(String title, String task) {
 		this.title = title;
 		this.task = task;
-		this.updatedTime = LocalDateTime.now();
 	}
 
 }

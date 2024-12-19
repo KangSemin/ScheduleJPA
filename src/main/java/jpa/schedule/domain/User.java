@@ -6,13 +6,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "users")
-@Getter
+@Entity @Table(name = "users") @Getter
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
@@ -30,6 +29,9 @@ public class User {
 	@CreatedDate
 	private LocalDateTime registerTime;
 
+	@LastModifiedDate
+	private LocalDateTime updatedTime;
+
 	private boolean deleted = false;
 	private LocalDateTime deletedAt;
 
@@ -38,7 +40,6 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.username = username;
-		this.registerTime = LocalDateTime.now();
 	}
 
 	public void update(String email, String password, String username) {
