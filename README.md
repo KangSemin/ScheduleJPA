@@ -100,26 +100,26 @@ erDiagram
 
 >```json
 >{
->    "email": "user@example.com",
->    "password": "password123",
->    "username": "user123"
+>    "username":"semin",
+>    "email":"semin@semin.com",
+>    "password":"semin123"
 >}
 >```
 
 #### 2. 로그인 요청
 >```json
 >{
->    "email": "user@example.com",
->    "password": "password123"
+>    "email": "semin@semin.com",
+>    "password": "semin123"
 >}
 >```
 
 #### 3. 사용자 정보 수정 요청
 >```json
 >{
->    "email": "newemail@example.com",
->    "password": "newpassword",
->    "username": "newusername"
+>    "email": "sungwoo@semin.com",
+>    "password": "semin321",
+>    "username": "sungwoo"
 >}
 >```
 
@@ -127,16 +127,16 @@ erDiagram
 #### 1. 일정 생성 요청
 >```json
 >{
->    "title": "프로젝트 회의",
->    "task": "팀원들과 프로젝트 진행상황 논의"
+>    "title": "나는 내가",
+>    "task": "빛나는 별인 줄 알았어요"
 >}
 >```
 
 #### 2. 일정 수정 요청
 >```json
 >{
->    "title": "수정된 회의",
->    "task": "회의 내용 수정"
+>    "title": "한 번도",
+>    "task": "의심 한 적 없었죠"
 >}
 >```
 
@@ -144,14 +144,14 @@ erDiagram
 #### 1. 댓글 작성 요청
 >```json
 >{
->    "content": "좋은 의견입니다!"
+>    "content": "몰랐어요"
 >}
 >```
 
 #### 2. 댓글 수정 요청
 >```json
 >{
->    "content": "수정된 댓글 내용"
+>    "content": "난 내가 벌레라는 것을"
 >}
 >```
 
@@ -169,8 +169,8 @@ erDiagram
 >```json
 >{
 >    "id": 1,
->    "email": "user@example.com",
->    "username": "user123",
+>    "email": "semin@semin.com",
+>    "username": "semin123",
 >    "registerTime": "2024-03-21T14:30:00"
 >}
 >```
@@ -179,9 +179,9 @@ erDiagram
 #### 1. 일정 생성/수정 응답
 >```json
 >{
->    "title": "프로젝트 회의",
->    "task": "팀원들과 프로젝트 진행상황 논의",
->    "username": "user123",
+>    "title": "나는 내가",
+>    "task": "빛나는 별인 줄 알았어요",
+>    "username": "semin",
 >    "postedTime": "2024-03-21T14:30:00",
 >    "updatedTime": "2024-03-21T14:30:00"
 >}
@@ -192,11 +192,11 @@ erDiagram
 >{
 >    "content": [
 >        {
->            "scheduleId": 1,
->            "title": "프로젝트 회의",
->            "task": "팀원들과 프로젝트 진행상황 논의",
 >            "commentCount": 3,
->            "username": "user123",
+>            "scheduleId": 1,
+>            "title": "나는 내가",
+>            "task": "빛나는 별인 줄 알았어요",
+>            "username": "semin",
 >            "postedTime": "2024-03-21T14:30:00",
 >            "updatedTime": "2024-03-21T14:30:00"
 >        }
@@ -214,8 +214,8 @@ erDiagram
 >```json
 >{
 >    "commentId": 1,
->    "content": "좋은 의견입니다!",
->    "username": "user123",
+>    "content": "몰랐어요",
+>    "username": "semin",
 >    "writtenTime": "2024-03-21T14:30:00",
 >    "updatedTime": "2024-03-21T14:30:00"
 >}
@@ -226,8 +226,8 @@ erDiagram
 >[
 >    {
 >        "commentId": 1,
->        "content": "좋은 의견입니다!",
->        "username": "user123",
+>        "content": "난 내가 벌레라는 것을",
+>        "username": "semin",
 >        "writtenTime": "2024-03-21T14:30:00",
 >        "updatedTime": "2024-03-21T14:30:00"
 >    }
